@@ -1,45 +1,56 @@
-let translations = {};
-let currentLang = "en";
+document.addEventListener("DOMContentLoaded", function() {
 
-fetch("assets/lang/lang.json")
-  .then(res => res.json())
-  .then(data => {
-    translations = data;
-    applyLanguage(currentLang);
-  })
-  .catch(err => console.error("Lang load error:", err));
+  let translations = {};
+  let currentLang = "en";
 
-function applyLanguage(lang) {
-  currentLang = lang;
+  fetch("assets/lang/lang.json")
+    .then(res => res.json())
+    .then(data => {
+      translations = data;
+      applyLanguage(currentLang);
+    })
+    .catch(err => console.error("Lang load error:", err));
 
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.dataset.i18n;
-    if (!key) return;
+  function applyLanguage(lang) {
+    currentLang = lang;
 
-    const value = translations[lang]?.[key];
-    if (value) el.textContent = value;
-  });
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      if (!el.dataset.i18n) return;
 
-  // Typed text
-  const typedEl = document.querySelector(".typed");
-  if (typedEl) {
-    const typedText = translations[lang]?.["hero.roles"];
-    if (typedText) {
-      typedEl.setAttribute("data-typed-items", typedText);
+      const keys = el.dataset.i18n.split(".");
+      let value = translations[lang];
+
+      for (let k of keys) {
+        if (!value || !value[k]) return;
+        value = value[k];
+      }
+
+      if (value) el.textContent = value;
+    });
+
+    // Typed text
+    const typedEl = document.querySelector(".typed");
+    if (typedEl && translations[lang]?.hero?.roles) {
+      typedEl.setAttribute(
+        "data-typed-items",
+        translations[lang].hero.roles
+      );
+
       if (window.typedInstance) window.typedInstance.destroy();
       window.typedInstance = new Typed(".typed", {
-        strings: typedText.split(","),
+        strings: translations[lang].hero.roles.split(","),
         loop: true,
         typeSpeed: 100,
         backSpeed: 50,
         backDelay: 2000
       });
     }
+
+    document.getElementById("lang-en")?.classList.toggle("active", lang === "en");
+    document.getElementById("lang-fr")?.classList.toggle("active", lang === "fr");
   }
 
-  document.getElementById("lang-en")?.classList.toggle("active", lang === "en");
-  document.getElementById("lang-fr")?.classList.toggle("active", lang === "fr");
-}
+  document.getElementById("lang-en")?.addEventListener("click", () => applyLanguage("en"));
+  document.getElementById("lang-fr")?.addEventListener("click", () => applyLanguage("fr"));
 
-document.getElementById("lang-en")?.addEventListener("click", () => applyLanguage("en"));
-document.getElementById("lang-fr")?.addEventListener("click", () => applyLanguage("fr"));
+});
