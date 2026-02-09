@@ -12,23 +12,27 @@ function applyLanguage(lang) {
   currentLang = lang;
 
   document.querySelectorAll("[data-i18n]").forEach(el => {
+    if (!el.dataset.i18n) return;
+
     const keys = el.dataset.i18n.split(".");
     let value = translations[lang];
-    keys.forEach(k => value = value[k]);
+
+    for (let k of keys) {
+      if (!value || !value[k]) return;
+      value = value[k];
+    }
+
     el.textContent = value;
   });
 
   // Typed text
   const typedEl = document.querySelector(".typed");
-  if (typedEl) {
-    typedEl.setAttribute(
-      "data-typed-items",
-      translations[lang].hero.typed
-    );
+  if (typedEl && translations[lang]?.hero?.typed) {
+    typedEl.setAttribute("data-typed-items", translations[lang].hero.typed);
   }
 
-  document.getElementById("lang-en").classList.toggle("active", lang === "en");
-  document.getElementById("lang-fr").classList.toggle("active", lang === "fr");
+  document.getElementById("lang-en")?.classList.toggle("active", lang === "en");
+  document.getElementById("lang-fr")?.classList.toggle("active", lang === "fr");
 }
 
 document.getElementById("lang-en")?.addEventListener("click", () => applyLanguage("en"));
