@@ -6,7 +6,8 @@ fetch("assets/lang/lang.json")
   .then(data => {
     translations = data;
     applyLanguage(currentLang);
-  });
+  })
+  .catch(err => console.error("Lang load error:", err));
 
 function applyLanguage(lang) {
   currentLang = lang;
@@ -22,13 +23,22 @@ function applyLanguage(lang) {
       value = value[k];
     }
 
-    el.textContent = value;
+    if (value) el.textContent = value;
   });
 
   // Typed text
   const typedEl = document.querySelector(".typed");
   if (typedEl && translations[lang]?.hero?.typed) {
     typedEl.setAttribute("data-typed-items", translations[lang].hero.typed);
+
+    if (window.typedInstance) window.typedInstance.destroy();
+    window.typedInstance = new Typed(".typed", {
+      strings: translations[lang].hero.typed.split(","),
+      loop: true,
+      typeSpeed: 100,
+      backSpeed: 50,
+      backDelay: 2000
+    });
   }
 
   document.getElementById("lang-en")?.classList.toggle("active", lang === "en");
