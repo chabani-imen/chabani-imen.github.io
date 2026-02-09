@@ -1,0 +1,42 @@
+{
+  "en": {
+    "meta.title": "Imen Chabani | ATM & Software Engineer | Full Stack Developer",
+    "meta.description": "ATM & Software Engineer with experience in NCR ATM systems, electronic payments, EMV standards, and backend development using Laravel.",
+    "meta.keywords": "Imen Chabani, ATM Engineer, Software Engineer, NCR ATM, EMV, electronic payments, backend developer, Laravel, fintech, ATM supervision",
+
+    "nav.home": "Home",
+    "nav.about": "About",
+    "nav.resume": "Resume",
+    "nav.services": "Services",
+    "nav.contact": "Contact",
+
+    "hero.name": "Imen Chabani",
+    "hero.iam": "I'm",
+    "hero.roles": "Software Project Manager, Consultant, Full Stack Developer, Freelancer, Fintech Solutions",
+
+    "footer.name": "Imen Chabani",
+    "footer.title": "ATM & Software Engineer | Full Stack Developer | Freelancer | Fintech Solutions",
+    "footer.rights": "© 2026 Imen Chabani. All Rights Reserved",
+    "footer.credit": "Crafted with ❤️ for professional excellence"
+  },
+  "fr": {
+    "meta.title": "Imen Chabani | Ingénieure GAB & Logicielle | Développeuse Full Stack",
+    "meta.description": "Ingénieure GAB & Logicielle avec expérience sur les systèmes NCR ATM, paiements électroniques, standards EMV, et développement backend avec Laravel.",
+    "meta.keywords": "Imen Chabani, Ingénieure ATM, Développeuse Logicielle, NCR ATM, EMV, paiements électroniques, développement backend, Laravel, fintech, supervision ATM",
+
+    "nav.home": "Accueil",
+    "nav.about": "À propos",
+    "nav.resume": "CV",
+    "nav.services": "Services",
+    "nav.contact": "Contact",
+
+    "hero.name": "Imen Chabani",
+    "hero.iam": "Je suis",
+    "hero.roles": "Cheffe de projets logiciels, Consultante, Développeuse Full Stack, Freelance, Solutions Fintech",
+
+    "footer.name": "Imen Chabani",
+    "footer.title": "Ingénieure GAB & Logicielle | Développeuse Full Stack | Freelance | Solutions Fintech",
+    "footer.rights": "© 2026 Imen Chabani. Tous droits réservés",
+    "footer.credit": "Conçu avec ❤️ pour l’excellence professionnelle"
+  }
+}
