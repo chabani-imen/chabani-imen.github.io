@@ -2,6 +2,7 @@
  * Language Switcher - Bilingual Support (EN/FR)
  * Manages language switching and CV download based on selected language
  */
+<<<<<<< HEAD
 
 (function() {
   "use strict";
@@ -121,3 +122,61 @@
   window.setLanguage = setLanguage;
 
 })();
+=======
+let translations = {};
+let typedInstance = null;
+
+async function loadLanguage(lang) {
+  try {
+    // Load JSON only once
+    if (!translations.en) {
+      const res = await fetch("assets/lang/lang.json");
+      translations = await res.json();
+    }
+
+    // Update elements with data-i18n
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (translations[lang] && translations[lang][key]) {
+        el.innerText = translations[lang][key];
+      }
+    });
+
+    // Typed.js hero roles
+    const roles = translations[lang] ? translations[lang]["hero.roles"] : "";
+    if (roles) {
+      if (typedInstance) typedInstance.destroy();
+      typedInstance = new Typed(".typed", {
+        strings: roles.split(","),
+        typeSpeed: 80,
+        backSpeed: 40,
+        backDelay: 1500,
+        loop: true
+      });
+    }
+
+    // Save language
+    localStorage.setItem("language", lang);
+
+    // Active button
+    document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+    const activeBtn = document.querySelector(`[data-lang="${lang}"]`);
+    if (activeBtn) activeBtn.classList.add("active");
+
+  } catch (error) {
+    console.error("Error loading language:", error);
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      if (!el.innerText) el.innerText = el.getAttribute("data-i18n");
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const savedLang = localStorage.getItem("language") || "en";
+  loadLanguage(savedLang);
+
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => loadLanguage(btn.dataset.lang));
+  });
+});
+>>>>>>> a7b7182 (update website content and language system)
